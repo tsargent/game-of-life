@@ -1,0 +1,14 @@
+.game-row {
+  display: flex;
+  flex-direction: row;
+}
+.game-cell {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: beige;
+  transition: background-color 0.5s ease;
+}
+.alive {
+  background-color: darksalmon;
+}

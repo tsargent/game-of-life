@@ -1,26 +1,34 @@
 import { useEffect, useRef, useState } from "react";
 import setGameState from "./setGameState";
+import "./Game.css";
 
-const Game = () => {
-  const initialState = [
-    [0, 0, 0, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0],
-  ];
+const Game = ({ initialState, cellSize = 10, interval = 1000 }) => {
   const timer = useRef(null);
+  const boardSize = initialState[0].length * cellSize;
+  const boardStyle = { width: boardSize, height: boardSize };
   const [gameState, setState] = useState(initialState);
-
-  console.log(gameState);
+  const cellStyle = { width: cellSize, height: cellSize };
 
   useEffect(() => {
     timer.current = setInterval(() => {
-      console.log(Date.now());
       setState(setGameState);
-    }, 1000);
-  }, []);
-  return <div>{JSON.stringify(gameState)}</div>;
+    }, interval);
+  }, [interval]);
+  return (
+    <div className="game-board" style={boardStyle}>
+      {gameState.map((row, idx) => (
+        <div className="game-row" key={`row-${idx}`}>
+          {row.map((cell, idx) => (
+            <div
+              className={`game-cell ${cell ? "alive" : "dead"}`}
+              style={cellStyle}
+              key={`cell-${idx}`}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default Game;
