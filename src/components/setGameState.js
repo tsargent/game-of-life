@@ -15,7 +15,6 @@ function getCellState(row, col, state) {
   }
   if (state[row]) {
     if (state[row][col - 1]) count++;
-    // skip state[row][col] because that's the cell, not a neighbor
     if (state[row][col + 1]) count++;
   }
   if (state[row + 1]) {
