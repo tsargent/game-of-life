@@ -1,19 +1,13 @@
-import { useEffect, useRef, useState } from "react";
-import setGameState from "./setGameState";
 import "./Game.css";
+import { useGameOfLife } from "../hooks";
 
 const Game = ({ initialState, cellSize = 10, interval = 1000 }) => {
-  const timer = useRef(null);
   const boardSize = initialState[0].length * cellSize;
   const boardStyle = { width: boardSize, height: boardSize };
-  const [gameState, setState] = useState(initialState);
   const cellStyle = { width: cellSize, height: cellSize };
 
-  useEffect(() => {
-    timer.current = setInterval(() => {
-      setState(setGameState);
-    }, interval);
-  }, [interval]);
+  const { gameState } = useGameOfLife({ initialState, interval });
+
   return (
     <div className="game-board" style={boardStyle}>
       {gameState.map((row, idx) => (

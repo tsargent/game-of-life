@@ -9,10 +9,11 @@ function getCellState(row, col, state) {
   const cellState = state[row][col];
   let count = 0;
   for (let i = -1; i < 2; i++) {
-    if (state[row + i]) {
-      if (state[row + i][col - 1]) count++;
-      if (state[row + i][col + 0] && i !== 0) count++;
-      if (state[row + i][col + 1]) count++;
+    for (let j = -1; j < 2; j++) {
+      if (state[row + i]) {
+        if (state[row + i][col + j]) count++;
+        if (state[row + i][col + j] && i === 0 && j === 0) count--;
+      }
     }
   }
   return [cellState, count];
